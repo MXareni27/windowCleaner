@@ -70,6 +70,7 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/admiAppointment', 'showAppoinments'); 
     Route::post('/addApp', 'addapp');
     Route::get('/calendar', 'ca');
+    Route::get('/calendar/{id}', 'caid');
  });
 
  Route::get('download-ServicesPDF',[AdController::class, 'downloadServicesPDF'])->name('download-ServicesPDF');

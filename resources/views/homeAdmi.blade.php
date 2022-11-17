@@ -23,7 +23,7 @@
     </head>
     <body class="antialiased">
        <!--<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">-->
-        @include('layouts/menuAdmi')
+        @include('layouts/app')
         
         <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">

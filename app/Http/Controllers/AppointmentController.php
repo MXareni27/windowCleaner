@@ -31,9 +31,16 @@ class AppointmentController extends Controller
     public function ca(){
         $app = Appointment::all();
        // dd($ad);
-        return view('calendar');
+        return view('calendar')
+        ->with('app',$app);
     }
 
+    public function caid($id)
+    {
+        $app = Appointment::find($id);
+        return view('appDetails')
+        ->with('app',$app);
+    }
 
     public function addapp(Request $request) 
     {       
@@ -44,6 +51,8 @@ class AppointmentController extends Controller
         $p->idUser = $id;
         //$p->hour = "04:18:27";
         $p->day = $request->dateApp;
+        
+        $p->status = "Aceptada";
         $p->save();
         //$day = new Day();
         //$day->day = $request->dateApp;

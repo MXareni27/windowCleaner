@@ -53,7 +53,7 @@ class AdController extends Controller
           $p->save();
         }*/
 
-        return redirect("/homeAdmi");
+        return redirect("/admiService");
      }  
 
      public function showEdit(Request $request ) 
@@ -86,9 +86,8 @@ class AdController extends Controller
        public function downloadServicesPDF() 
       {  
         $services = Ad::all();
-        $description = AdDescription::all();
-        view()->share('servicePDF', [$services, $description]);
-        $pdf = PDF::loadView('servicePDF',['services' => $services, 'description'=>$description]);
+        view()->share('servicePDF', [$services]);
+        $pdf = PDF::loadView('servicePDF',['services' => $services]);
         return $pdf->download('Servicios disponibles');
        } 
 }

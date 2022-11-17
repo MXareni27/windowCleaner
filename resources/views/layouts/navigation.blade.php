@@ -7,7 +7,7 @@
                 @auth
                 <div class="shrink-0 flex items-center">
                     <a class="text-decoration-none font-italic" href="{{ route('dashboard') }}">
-                        <img src="img/logo.png" class="img-fluid" alt="no se pudo manito" width= 100px>
+                        <img src="img/logo.png" class="img-fluid" alt="CleanyDallas" width= 100px>
                     </a>
                 </div>
 
@@ -44,7 +44,7 @@
                         Reservaciones
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/admiAppointment">Administrarr</a></li>
+                        <li><a class="dropdown-item" href="/admiAppointment">Administrar</a></li>
                         <li><a class="dropdown-item" href="/calendar">Calendario</a></li>
                       </ul>
                     </li>
@@ -53,7 +53,7 @@
                         Servicios
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar nuevo servicio</a></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalAddService">Agregar nuevo servicio</a></li>
                         <li><a class="dropdown-item" href="/admiService">Administrar</a></li>
                       </ul>
                     </li>
@@ -65,19 +65,6 @@
                         <li><a class="dropdown-item" href="#">Administrar</a></li>
                       </ul>
                     </li>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                          </a>
-                          <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                
                 </ul>
                 @endif
                 @else

@@ -43,11 +43,10 @@
                                     </tr>
                                         <ul class="ms-4 list-unstyled">
                                             
-                                        @foreach ($description as $des)
-                                            @if ($ad->id == $des->idAd)
-                                            <li> <p style="font-size: 10px">{{ $des->description }}</p></li>
-                                            @endif
-                                            
+                                    
+                                        @foreach($ad->nameService() as $services)
+                                                
+                                                <li> <p style="font-size: 10px">{{$services->description}}</p></li>
                                         @endforeach
                                         </ul>
                                     

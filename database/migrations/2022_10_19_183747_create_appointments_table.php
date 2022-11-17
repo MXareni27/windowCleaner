@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId("idUser")->constrained("users");
             $table->date('day');
-            
+            $table->string('status');
         });
     }
 

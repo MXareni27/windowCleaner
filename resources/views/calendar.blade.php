@@ -66,7 +66,7 @@
           </div>
         @include('layouts/app')
         <br><br>
-        <div class="container"><div class="container"><div id='calendar'></div></div></div>
+        <div class="container"><div class="container mb-5"><div id='calendar'></div></div></div>
        <!-- </div>-->
        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
@@ -109,7 +109,7 @@
               eventClick:function(info){
                 //$('#idUser').val(info.event.title);
                 //$('#idUser').val('2022-11-17');
-                var day = ("0" + (info.event.start).getDate()).slice(-2);
+               /* var day = ("0" + (info.event.start).getDate()).slice(-2);
                 var month = ("0" + ((info.event.start).getMonth() + 1)).slice(-2);
                 var today = (info.event.start).getFullYear()+"-"+(month)+"-"+(day) ;
                 //$('#datePicker').val(today);
@@ -123,7 +123,7 @@
                 //document.getElementById("#day").value = today;
                 $('#modalAppointment').modal({ show:false });
                 //$('#day').val(today);
-                $('#modalAppointment').modal('show');
+                $('#modalAppointment').modal('show');*/
                 
               },
               eventColor: '#2C3E50'

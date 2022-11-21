@@ -28,6 +28,15 @@ class AppointmentController extends Controller
                     ->with('app',$app);
     }
 
+    public function viewAppoinments(){
+        $id = Auth::id();
+        $app = Appointment::where('idUser',$id)->get();
+        
+       // dd($ad);
+        return view('viewAppointment')
+                    ->with('app',$app);
+    }
+
     public function ca(){
         $app = Appointment::all();
        // dd($ad);
@@ -40,6 +49,15 @@ class AppointmentController extends Controller
         $app = Appointment::find($id);
         return view('appDetails')
         ->with('app',$app);
+    }
+
+    public function showAppoinment($id)
+    {
+        $app = Appointment::find($id);
+        $ad = Ad::all();
+        return view('showAppointment')
+        ->with('app',$app)
+        ->with('ads',$ad);;
     }
 
     public function addapp(Request $request) 
@@ -85,4 +103,14 @@ class AppointmentController extends Controller
         
         return redirect("/home");
      }  
+
+     public function updateStatus(Request $request ) 
+      {  
+        $app = Appointment::find($request->id);
+       // dd($app);
+        $app->status = $request->selectStatus;
+        $app->save();
+        
+        return redirect("/calendar");
+      } 
 }

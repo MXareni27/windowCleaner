@@ -18,6 +18,13 @@ class AdController extends Controller
                     ->with('ads',$ad);
     }
 
+    public function showServices(){
+      $ad = Ad::all();
+     // dd($ad);
+      return view('showServices')
+                  ->with('ads',$ad);
+  }
+
     public function showAdmi(){
         $ad = Ad::all();
        // dd($ad);
@@ -67,6 +74,28 @@ class AdController extends Controller
         $p = Ad::find($request->id);
         $p->name = $request->name;
         $p->save();
+        $destination = "img/services/".$p->img;
+        if(File::exists($destination)){
+            File::delete($destination);
+        }
+        $imagen = $request->file('img');
+        $nombre = time().'.'.$imagen->getClientOriginalExtension();
+        $destination = public_path('img/services');
+        $request->img->move($destination, $nombre);
+        $p->img = $nombre;
+        $p->save();
+        foreach($p->nameService() as $description){
+          $description->delete();
+        }
+        $i = 1;
+        while ($request->input('description'. $i)){
+            
+                $adDes= new AdDescription();
+                $adDes->idAd = $p->id;
+                $adDes->description = $request->input('description'. $i);
+                $adDes->save();
+                $i++;
+        }
         
         return redirect("/admiService");
       } 

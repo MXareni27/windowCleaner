@@ -49,10 +49,7 @@
                     </label>
                 </div>
                 @endforeach
-            </div>
-        
-            <input type="time" id="appt" name="appt" min="07:00" max="14:00" required>
-              
+            </div>      
              
         </div>
         

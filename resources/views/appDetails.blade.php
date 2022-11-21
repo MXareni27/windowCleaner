@@ -30,8 +30,22 @@
                         <th>
                             Estatus: 
                         </th>
-                        <td> 
-                            {{$app->status}}
+                        <td > 
+                            <form action="/editStatus" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$app->id}}">
+                                <div class="row">
+                                    <div class="col">
+                                        <select  name="selectStatus">
+                                            <option value="Aceptada" @if($app->status == "Aceptada") selected @endif>Aceptar</option>
+                                            <option value="Rechazada" @if($app->status == "Rechazada") selected @endif>Rechazar</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-primary">Guardar estatus</button>
+                                    </div>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                     <tr>
@@ -39,7 +53,7 @@
                             Dirección: 
                         </th>
                         <td> 
-                            {{$app->alldirection()->street}}, Col.{{$app->alldirection()->colony}}, #{{$app->alldirection()->number}}, CP.{{$app->alldirection()->cp}}
+                            {{$app->alldirection()->street}}, Col. {{$app->alldirection()->colony}}, #{{$app->alldirection()->number}}, {{$app->alldirection()->city}}, CP.{{$app->alldirection()->cp}}
                         </td>
                     </tr>
                     <tr>

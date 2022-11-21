@@ -61,6 +61,7 @@ Route::controller(HomeController::class)->group(function(){
 
     Route::post('/deleteService', 'delete');
     
+    Route::get('/showServices', 'showServices'); 
  });
 
 
@@ -71,6 +72,9 @@ Route::controller(HomeController::class)->group(function(){
     Route::post('/addApp', 'addapp');
     Route::get('/calendar', 'ca');
     Route::get('/calendar/{id}', 'caid');
+    Route::get('/appointment/{id}', 'showAppoinment');
+    Route::post('/editStatus', 'updateStatus'); 
+    Route::get('/viewAppointment', 'viewAppoinments'); 
  });
 
  Route::get('download-ServicesPDF',[AdController::class, 'downloadServicesPDF'])->name('download-ServicesPDF');

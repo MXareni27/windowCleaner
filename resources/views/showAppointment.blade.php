@@ -6,21 +6,21 @@
             $fecha = date("Y-m-d");
             if($fecha < $app->day){
         ?>
-            <form action="/editStatus" method="post">
+            <form action="/editAppointment" method="post">
                 @csrf
                 <div class="container">
                     <table class="table">
                         <thead>
                             <tr>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                                <th style="width:30%" scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead> 
                         <tbody>
                            
                             <tr>
                                 <th>
-                                    Nombreee: 
+                                    Nombre: 
                                 </th>
                                 <td>
                                     {{$app->username()->name}}
@@ -32,8 +32,7 @@
                                 </th>
                                 <td>  
                                     
-                                    <input id="dateApp"  class= "border-dark border-2 rounded"type="date" value={{$app->day}} >
-                                    <div id="alerta"></div>
+                                    <input id="dateApp" name="dateApp"  class= "border-dark border-2 rounded"type="date" value={{$app->day}}>
                                 </td>
                             </tr>
                             <tr>
@@ -50,9 +49,6 @@
                                                     <option value="Cancelada" @if($app->status == "Cancelada") selected @elseif($app->status == "Rechazada") disabled @endif>Cancelar</option>
                                                     <option value="Rechazada" @if($app->status == "Rechazada") selected @endif disabled>Rechazar</option>
                                                 </select>
-                                            </div>
-                                            <div class="col">
-                                                <button type="submit" class="btn btn-primary">Guardar estatus</button>
                                             </div>
                                         </div>
                                     
@@ -113,8 +109,10 @@
                                 </th>
                                 <td> 
                                     <div class="form-group" required>
+                                        <?php $arrayAds=array(); $arrayAppService=array(); ?>
+                                        
                                         @foreach ($ads as $ad)
-                                            <div class="form-check">
+                                        <div class="form-check">
                                                 <input class="form-check-input border-dark border-2" type="checkbox" value="{{$ad->id}}" id="flexCheckDefault{{$ad->id}}" name="service{{$ad->id}}" 
                                                 @foreach($app->servicesApp() as $services)
                                                     @if($services->service == $ad->name)
@@ -124,16 +122,34 @@
                                                 <label class="form-check-label" for="flexCheckDefault{{$ad->id}}">
                                                     {{$ad->name}}
                                                 </label>
-                                            </div>
+                                           
+                                            <?php $arrayAds[] = $ad->name;?>
+                                        </div>
                                         @endforeach
-                                        
+                                        @foreach($app->servicesApp() as $services)
+                                             <?php $arrayAppService[] = $services->service;?>
+                                        @endforeach
+                                        <?php $resultado=array_diff($arrayAppService,$arrayAds); ?>
+                                        @foreach($resultado as $res)
+                                            <div class="form-check">
+                                                <input class="form-check-input border-dark border-2" type="checkbox" value="" id="" name="" checked disabled>
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    {{$res}}   <span class="label warning" style="color:#f44336">Servicio ya no disponible</span>
+                                                </label>
+                                            </div>
+                                            
+                                        @endforeach
+                                    
                                     </div>     
+
                                     
                                 </td>
                             </tr>
                         </tbody>
                     </table> 
-                    
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary mb-5">Guardar cambios</button>
+                    </div>
                 </div>
             </form>
         <?php

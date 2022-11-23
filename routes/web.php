@@ -6,7 +6,8 @@ use App\Http\Controllers\AdController;
 use App\Http\Controllers\AppointmentController;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Middleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +20,7 @@ use Spatie\Permission\Models\Permission;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/homeAdmi', function () {
@@ -35,7 +36,7 @@ Route::get('/addAppointment', function () {
 });
 
 Route::get('/dashboard', [AdController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('/', [AdController::class, 'show']);
 require __DIR__.'/auth.php';
 
 
@@ -53,13 +54,13 @@ Route::controller(HomeController::class)->group(function(){
 
  Route::controller(AdController::class)->group(function(){
     Route::get('/home', 'show')->name('home'); 
-    Route::post('/add', 'add');
-    Route::get('/admiService', 'showAdmi'); 
+    Route::post('/add', 'add')->middleware('role:admi');
+    Route::get('/admiService', 'showAdmi')->middleware('role:admin'); 
 
-    Route::post('/editService', 'showEdit'); 
-    Route::post('/store', 'update'); 
+    Route::post('/editService', 'showEdit')->middleware('role:admi'); 
+    Route::post('/store', 'update')->middleware('role:admi'); 
 
-    Route::post('/deleteService', 'delete');
+    Route::post('/deleteService', 'delete')->middleware('role:admi');
     
     Route::get('/showServices', 'showServices'); 
  });
@@ -67,14 +68,15 @@ Route::controller(HomeController::class)->group(function(){
 
  
  Route::controller(AppointmentController::class)->group(function(){
-    Route::get('/addAppointment', 'showServices'); 
-    Route::get('/admiAppointment', 'showAppoinments'); 
-    Route::post('/addApp', 'addapp');
-    Route::get('/calendar', 'ca');
-    Route::get('/calendar/{id}', 'caid');
-    Route::get('/appointment/{id}', 'showAppoinment');
-    Route::post('/editStatus', 'updateStatus'); 
-    Route::get('/viewAppointment', 'viewAppoinments'); 
+    Route::get('/addAppointment', 'showServices')->middleware('role:registered'); 
+    Route::get('/admiAppointment', 'showAppoinments')->middleware('role:admi'); 
+    Route::post('/addApp', 'addapp')->middleware('role:registered');
+    Route::post('/editAppointment', 'editapp')->middleware('role:registered');
+    Route::get('/calendar', 'ca')->middleware('role:admi');
+    Route::get('/calendar/{id}', 'caid')->middleware('role:admi');
+    Route::get('/appointment/{id}', 'showAppoinment')->middleware('role:registered');
+    Route::post('/editStatus', 'updateStatus')->middleware('role:admi'); 
+    Route::get('/viewAppointment', 'viewAppoinments')->middleware('role:registered'); 
  });
 
  Route::get('download-ServicesPDF',[AdController::class, 'downloadServicesPDF'])->name('download-ServicesPDF');

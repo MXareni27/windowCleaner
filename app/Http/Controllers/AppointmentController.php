@@ -113,4 +113,49 @@ class AppointmentController extends Controller
         
         return redirect("/calendar");
       } 
+
+      public function editapp(Request $request) 
+    {       
+       
+        $p = Appointment::find($request->id);
+        
+        //$p->hour = "04:18:27";
+        $p->day = $request->dateApp;
+        
+       // $p->status = $request->selectStatus;
+        $p->save();
+        //$day = new Day();
+        //$day->day = $request->dateApp;
+        //$day->save();
+        //$time = new Time();
+        //$time->day = $request->dateApp;
+        //$time->idAppointments = $p->id;
+        //$time->save();
+        
+        foreach($p->servicesApp() as $services){
+            $services->delete();
+        }
+        $ads = Ad::all();
+        foreach ($ads as $ad) {
+            if(isset($_POST["service".$ad->id])){
+                $new_detail = new AppointmentDetail();
+                $new_detail->idAppointments = $p->id;
+                $new_detail->serviceID = $ad->id;
+                $new_detail->service = $ad->name;
+                $new_detail->save();
+            }
+        }
+        $d = Direction::where('idAppointments',$p->id)->get()->first();
+        $d->city = $request->city;
+        $d->street = $request->street;
+        $d->number = $request->num;
+        $d->cp = $request->cp;
+        $d->colony = $request->colony;
+        $d->phoneNumber = $request->tel;
+        $d->save();
+
+         
+        
+        return redirect("/home");
+     }  
 }
